@@ -6,7 +6,7 @@ ARCH=$(uname -m)
 
 echo "Installing package dependencies..."
 echo "---------------------------------------------------------------"
-pacman -Syu --noconfirm tauon-music-box pipewire-audio pipewire-jack p7zip unrar python-jxlpy python-pypresence python-tekore python-plexapi python-pychromecast python-tidalapi
+pacman -Syu --noconfirm tauon-music-box pipewire-audio pipewire-jack p7zip unrar opusfile mpg123 flac libvorbis wavpack python-jxlpy python-pypresence python-tekore python-plexapi python-pychromecast python-tidalapi
 
 echo "Installing debloated packages..."
 echo "---------------------------------------------------------------"
