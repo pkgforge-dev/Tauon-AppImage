@@ -22,6 +22,7 @@ find /usr/lib/python*/site-packages \
 quick-sharun \
 	/usr/bin/tauonmb           \
 	/usr/lib/libgtk-3.so*      \
+	/usr/lib/libgme.so*			\
 	/usr/lib/libwavpack.so*    \
 	/usr/lib/libopusfile.so*	\
 	/usr/lib/libsamplerate.so* \
