@@ -12,7 +12,7 @@ pacman -Syu --noconfirm \
   p7zip unrar \
   opusfile mpg123 flac libvorbis wavpack \
   libgme libnotify \
-  python-jxlpy python-pypresence python-tekore python-plexapi python-pychromecast python-tidalapi \
+  python-jxlpy python-pypresence python-tekore python-plexapi python-pychromecast python-tidalapi python-opengl \
   libimagequant
 
 echo "Installing debloated packages..."
