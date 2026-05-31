@@ -13,7 +13,7 @@ pacman -Syu --noconfirm \
   opusfile mpg123 flac libvorbis wavpack \
   libgme libnotify \
   python-jxlpy python-pypresence python-tekore python-plexapi python-pychromecast python-tidalapi python-opengl \
-  libimagequant
+  libimagequant openjpeg2
 
 echo "Installing debloated packages..."
 echo "---------------------------------------------------------------"
