@@ -27,7 +27,7 @@ pacman -Syu --noconfirm \
 	python-tidalapi     \
 	tauon-music-box     \
 	unrar               \
-	wavpac
+	wavpack
 
 echo "Installing debloated packages..."
 echo "---------------------------------------------------------------"
