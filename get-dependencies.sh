@@ -9,7 +9,6 @@ echo "---------------------------------------------------------------"
 pacman -Syu --noconfirm \
 	cargo                   \
 	flac                    \
-	kissfft                 \
 	libappindicator         \
 	libgme                  \
 	libimagequant           \
@@ -66,7 +65,16 @@ get-debloated-pkgs --add-common --prefer-nano ffmpeg-mini
 # Comment this out if you need an AUR package
 #make-aur-package tauon-music-box-git
 
-echo "Building tauon-music-box from source..."
+echo "Building kissfft..."
+echo "---------------------------------------------------------------"
+git clone --depth 1 https://github.com/mborgerding/kissfft.git && (
+	cd kissfft
+	make KISSFFT_TOOLS=0
+	make install PREFIX=/usr KISSFFT_TOOLS=0
+	ldconfig
+)
+
+echo "Building tauon-music-box..."
 echo "---------------------------------------------------------------"
 git clone https://github.com/Taiko2k/Tauon.git ./Tauon && (
 	cd ./Tauon
