@@ -7,8 +7,6 @@ export ARCH
 export OUTPATH=./dist
 export ADD_HOOKS="self-updater.hook"
 export UPINFO="gh-releases-zsync|${GITHUB_REPOSITORY%/*}|${GITHUB_REPOSITORY#*/}|latest|*$ARCH.AppImage.zsync"
-export ICON=/usr/share/icons/hicolor/scalable/apps/tauonmb.svg
-export DESKTOP=/usr/share/applications/tauonmb.desktop
 export DEPLOY_PYTHON=1
 export DEPLOY_PIPEWIRE=1
 export USE_HOST_DRIVERS_EXPERIMENTAL=1
@@ -30,7 +28,6 @@ quick-sharun \
 	/usr/lib/libvorbisfile.so*    \
 	/usr/lib/libopusfile.so*      \
 	/usr/lib/libsamplerate.so*    \
-	/usr/lib/libkissfft-float.so* \
 	/usr/lib/libimagequant.so*    \
 	/usr/lib/libopenjp2.so*
 

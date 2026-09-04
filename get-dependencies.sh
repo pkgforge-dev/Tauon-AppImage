@@ -17,10 +17,7 @@ pacman -Syu --noconfirm \
 	libprojectm             \
 	libsamplerate           \
 	libvorbis               \
-	miniaudio               \
 	mpg123                  \
-	noto-fonts              \
-	noto-fonts-extra        \
 	opencc                  \
 	openjpeg2               \
 	opusfile                \
@@ -65,28 +62,17 @@ get-debloated-pkgs --add-common --prefer-nano ffmpeg-mini
 # Comment this out if you need an AUR package
 #make-aur-package tauon-music-box-git
 
-echo "Building kissfft..."
-echo "---------------------------------------------------------------"
-git clone --depth 1 https://github.com/mborgerding/kissfft.git && (
-	cd kissfft
-	make KISSFFT_TOOLS=0
-	make install PREFIX=/usr KISSFFT_TOOLS=0
-	ldconfig
-)
-
 echo "Building tauon-music-box..."
 echo "---------------------------------------------------------------"
-git clone https://github.com/Taiko2k/Tauon.git ./Tauon && (
+git clone --recursive https://github.com/Taiko2k/Tauon.git ./Tauon && (
 	cd ./Tauon
 
 	git fetch --tags origin
 	TAG=$(git tag --sort=-v:refname | grep -vi 'pre\|rc\|alpha\|beta' | head -1)
 	git checkout "$TAG"
+	git submodule update --init --recursive
 	echo "${TAG#v}" > ~/version
 
-	# use system kissfft instead of the expected cloned repository
-	sed -i 's|"src/phazor/kissfft/kiss_fftr.c", "src/phazor/kissfft/kiss_fft.c", ||g' pyproject.toml
-	sed -i 's|"samplerate"|"kissfft-float", "samplerate"|g' pyproject.toml
 	sed -i 's|com.github.taiko2k.tauonmb.desktop|tauonmb.desktop|' extra/com.github.taiko2k.tauonmb.appdata.xml
 
 	python -m build --wheel
@@ -108,12 +94,11 @@ git clone https://github.com/Taiko2k/Tauon.git ./Tauon && (
 			-t "/usr/share/locale/$(basename "${dir}")/LC_MESSAGES"
 	done
 
-	install -Dm644 extra/tauonmb.desktop -t /usr/share/applications
-	install -Dm644 extra/com.github.taiko2k.tauonmb.appdata.xml -t /usr/share/metainfo
 	install -Dm644 extra/tauonmb-symbolic.svg -t /usr/share/icons/hicolor/symbolic/apps
-	install -Dm644 extra/tauonmb.svg -t /usr/share/icons/hicolor/scalable/apps
-	install -Dm755 extra/tauonmb.sh /usr/bin/tauon
-
 	site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
 	install -Dm755 src/lrclib-solver/target/release/lrclib-solver "${site_packages}/tauon/lrclib-solver"
 )
+
+mkdir -p ./AppDir
+cp -v ./Tauon/extra/tauonmb.desktop ./AppDir
+cp -v ./Tauon/extra/tauonmb.svg     ./AppDir
