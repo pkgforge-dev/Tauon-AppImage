@@ -1,13 +1,41 @@
 #!/bin/sh
-export SDL_BINARY_PATH="$APPDIR"/shared/lib
+export SDL_BINARY_PATH="$APPDIR"/lib
+
 if [ "$1" = '--no-start' ]; then
-	case "$2" in
-		--play)       exec curl http://localhost:7813/play/;;
-		--play-pause) exec curl http://localhost:7813/playpause/;;
-		--pause)      exec curl http://localhost:7813/pause/;;
-		--stopcurl)   exec curl http://localhost:7813/stop/;;
-		--next)       exec curl http://localhost:7813/next/;;
-		--previous)   exec curl http://localhost:7813/previous/;;
-	esac
+	shift
 fi
+
+case "$1" in
+	--play|play)
+		exec curl http://127.0.0.1:7813/play
+		;;
+	--pause|pause)
+		exec curl http://127.0.0.1:7813/pause
+		;;
+	--playpause|--play-pause|playpause|play-pause)
+		exec curl http://127.0.0.1:7813/playpause
+		;;
+	--stop|--stopcurl|stop|stopcurl)
+		exec curl http://127.0.0.1:7813/stop
+		;;
+	--next|--advance|next|advance)
+		exec curl http://127.0.0.1:7813/next
+		;;
+	--previous|--prev|--back|previous|prev|back)
+		exec curl http://127.0.0.1:7813/previous
+		;;
+	--raise|raise)
+		exec curl http://127.0.0.1:7813/raise
+		;;
+	--reloadtheme|reloadtheme)
+		exec curl http://127.0.0.1:7813/reloadtheme
+		;;
+	--shuffle|shuffle)
+		exec curl http://127.0.0.1:7813/shuffle
+		;;
+	--repeat|repeat)
+		exec curl http://127.0.0.1:7813/repeat
+		;;
+esac
+
 exec tauonmb "$@"

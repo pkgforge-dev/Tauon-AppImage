@@ -3,16 +3,13 @@
 set -eu
 
 ARCH=$(uname -m)
-VERSION=$(pacman -Q tauon-music-box | awk '{print $2; exit}') # example command to get version of application here
-export ARCH VERSION
+export ARCH
 export OUTPATH=./dist
 export ADD_HOOKS="self-updater.hook"
 export UPINFO="gh-releases-zsync|${GITHUB_REPOSITORY%/*}|${GITHUB_REPOSITORY#*/}|latest|*$ARCH.AppImage.zsync"
-export ICON=/usr/share/icons/hicolor/scalable/apps/tauonmb.svg
-export DESKTOP=/usr/share/applications/tauonmb.desktop
-export DEPLOY_SYS_PYTHON=1
+export DEPLOY_PYTHON=1
 export DEPLOY_PIPEWIRE=1
-export DEPLOY_OPENGL=1
+export USE_HOST_DRIVERS_EXPERIMENTAL=1
 export DEPLOY_SDL=1
 
 # fix bug making the app assume that it can write to its site-package dir
@@ -21,18 +18,17 @@ find /usr/lib/python*/site-packages \
 
 # Deploy dependencies
 quick-sharun \
-	/usr/bin/tauonmb           \
-	/usr/bin/ffmpeg				\
-	/usr/lib/libgtk-3.so*      \
-	/usr/lib/libgme.so*			\
-	/usr/lib/libwavpack.so*    \
-	/usr/lib/libnotify.so*		\
-	/usr/lib/libopenmpt.so*		\
-	/usr/lib/libvorbisfile.so*	\
-	/usr/lib/libopusfile.so*	\
-	/usr/lib/libsamplerate.so* \
-	/usr/lib/libkissfft-float.so*	\
-	/usr/lib/libimagequant.so*      \
+	/usr/bin/tauonmb              \
+	/usr/bin/ffmpeg               \
+	/usr/lib/libgtk-3.so*         \
+	/usr/lib/libgme.so*           \
+	/usr/lib/libwavpack.so*       \
+	/usr/lib/libnotify.so*        \
+	/usr/lib/libopenmpt.so*       \
+	/usr/lib/libvorbisfile.so*    \
+	/usr/lib/libopusfile.so*      \
+	/usr/lib/libsamplerate.so*    \
+	/usr/lib/libimagequant.so*    \
 	/usr/lib/libopenjp2.so*
 
 # Additional changes can be done in between here
