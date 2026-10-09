@@ -53,7 +53,8 @@ pacman -Syu --noconfirm \
 	sdl3_image              \
 	unrar                   \
 	wavpack                 \
-	xdg-utils
+	xdg-utils				\
+	libxcrypt-compat
 
 echo "Installing debloated packages..."
 echo "---------------------------------------------------------------"
