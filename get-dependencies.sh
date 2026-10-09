@@ -73,9 +73,13 @@ git clone --recursive https://github.com/Taiko2k/Tauon.git ./Tauon && (
 	git submodule update --init --recursive
 	echo "${TAG#v}" > ~/version
 
-	sed -i 's|com.github.taiko2k.tauonmb.desktop|tauonmb.desktop|' extra/com.github.taiko2k.tauonmb.appdata.xml
+    if [ -f extra/com.github.taiko2k.tauonmb.metainfo.xml ]; then
+        sed -i 's|com.github.taiko2k.tauonmb.desktop|tauonmb.desktop|' extra/com.github.taiko2k.tauonmb.metainfo.xml
+    elif [ -f extra/com.github.taiko2k.tauonmb.appdata.xml ]; then
+        sed -i 's|com.github.taiko2k.tauonmb.desktop|tauonmb.desktop|' extra/com.github.taiko2k.tauonmb.appdata.xml
+    fi
 
-	python -m build --wheel
+   	python -m build --wheel
 
 	# Tiny Rust binary that calculates LRCLIB challenges
 	(
