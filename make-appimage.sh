@@ -29,7 +29,8 @@ quick-sharun \
 	/usr/lib/libopusfile.so*      \
 	/usr/lib/libsamplerate.so*    \
 	/usr/lib/libimagequant.so*    \
-	/usr/lib/libopenjp2.so*
+	/usr/lib/libopenjp2.so*		  \
+	/usr/lib/libcrypt.so*		  
 
 # Additional changes can be done in between here
 
