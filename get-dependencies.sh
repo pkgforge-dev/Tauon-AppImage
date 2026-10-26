@@ -8,7 +8,9 @@ echo "Installing package dependencies..."
 echo "---------------------------------------------------------------"
 pacman -Syu --noconfirm \
 	cargo                   \
+	cmake                   \
 	flac                    \
+	gettext                 \
 	libappindicator         \
 	libgme                  \
 	libimagequant           \
@@ -18,6 +20,7 @@ pacman -Syu --noconfirm \
 	libsamplerate           \
 	libvorbis               \
 	mpg123                  \
+	ninja                   \
 	opencc                  \
 	openjpeg2               \
 	opusfile                \
@@ -80,7 +83,12 @@ git clone --recursive https://github.com/Taiko2k/Tauon.git ./Tauon && (
         sed -i 's|com.github.taiko2k.tauonmb.desktop|tauonmb.desktop|' extra/com.github.taiko2k.tauonmb.appdata.xml
     fi
 
-   	python -m build --wheel
+   # Arch Linux ARM's python package was built with distcc enabled, so its
+   # sysconfig records CXX=/usr/lib/distcc/bin/g++, a path that does not
+   # exist in the image and breaks the cmake wheel build. scikit-build-core
+   # only falls back to sysconfig when CC/CXX are unset, so set them here.
+   export CC=gcc CXX=g++
+   python -m build --wheel
 
 	# Tiny Rust binary that calculates LRCLIB challenges
 	(
@@ -93,14 +101,8 @@ git clone --recursive https://github.com/Taiko2k/Tauon.git ./Tauon && (
 
 	python -m installer --destdir=/ dist/*.whl
 
-	for dir in src/tauon/locale/*; do
-		install -Dm644 \
-			"${dir}/LC_MESSAGES/"*.mo \
-			-t "/usr/share/locale/$(basename "${dir}")/LC_MESSAGES"
-	done
-
-	install -Dm644 extra/tauonmb-symbolic.svg -t /usr/share/icons/hicolor/symbolic/apps
 	site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
+	install -Dm644 extra/tauonmb-symbolic.svg -t /usr/share/icons/hicolor/symbolic/apps
 	install -Dm755 src/lrclib-solver/target/release/lrclib-solver "${site_packages}/tauon/lrclib-solver"
 )
 
